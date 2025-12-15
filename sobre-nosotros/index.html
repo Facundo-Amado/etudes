@@ -199,6 +199,98 @@ border-radius: 5px !important;
 <link rel="icon" href="../img/etudes-logo.png" sizes="192x192">
 <link rel="apple-touch-icon" href="../img/etudes-logo.png">
 <meta name="msapplication-TileImage" content="../img/etudes-logo.png">
+
+<!--MENÚ HAMBURGUESA-->
+<style>
+/* Footer: overlay full-screen desde abajo */
+footer .wp-block-navigation__responsive-container.is-menu-open {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0;
+  right: 0;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  justify-content: flex-end !important;
+}
+
+/* Footer: contenido alineado abajo */
+footer .wp-block-navigation__responsive-container.is-menu-open
+.wp-block-navigation__responsive-container-content {
+  margin-top: auto !important;
+  padding-top: 0 !important;
+  padding-bottom: 2rem;
+}
+
+/* Footer: el ícono se posiciona respecto a la pantalla */
+footer .wp-block-navigation__responsive-container-open,
+footer .wp-block-navigation__responsive-container-close {
+  position: fixed !important;
+  right: 0 !important;
+  margin-right: 0 !important;
+}
+
+footer .wp-block-navigation {
+  transform: none !important;
+}
+
+/* Footer: volver visible el ícono */
+footer .wp-block-navigation__responsive-container-open,
+footer .wp-block-navigation__responsive-container-close {
+  position: absolute !important;
+  bottom: 2.3rem !important;
+  right: 12,36px !important;
+}
+
+/* Footer: posición de la X cuando el menú está abierto */
+footer
+.wp-block-navigation__responsive-container.is-menu-open
+.wp-block-navigation__responsive-container-close {
+  bottom: 110px !important;   /* cambia esto */
+  right: 31,2px !important;  /* y esto */
+}
+
+</style>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".wp-block-navigation").forEach(nav => {
+    const openBtn = nav.querySelector(
+      ".wp-block-navigation__responsive-container-open"
+    );
+    const closeBtn = nav.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    );
+    const menu = nav.querySelector(
+      ".wp-block-navigation__responsive-container"
+    );
+
+    if (!openBtn || !menu) return;
+
+    openBtn.addEventListener("click", () => {
+      menu.classList.add("is-menu-open");
+      document.documentElement.classList.add("has-modal-open");
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        menu.classList.remove("is-menu-open");
+        document.documentElement.classList.remove("has-modal-open");
+      });
+    }
+
+    // Cerrar menú al tocar un link
+    menu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("is-menu-open");
+        document.documentElement.classList.remove("has-modal-open");
+      });
+    });
+  });
+
+});
+</script>
 </head>
 
 <body class="wp-singular page-template-default page page-id-1778 wp-custom-logo wp-embed-responsive wp-theme-twentytwentyfour">
